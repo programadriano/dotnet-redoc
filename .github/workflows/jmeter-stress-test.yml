@@ -1,36 +1,38 @@
-# This is a workflow to help you run all JMeter scripts with Actions, and save Test Results as artifact
+name: Test JMeter Action
 
-name: jmeter_test_results
-
-# Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the main branch
   push:
-    branches: [ main ]
+    branches:
+      - master
+  pull_request:
+    branches: [master]
 
-
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
-
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
+  action_build:
     runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:  
-    - name: JMeter Test
-      uses: QAInsights/PerfAction@v3.1
-      with:
-        run: pwd
-        test-plan-path: jmx/example.jmx
-        args: ""
-        
-   
-    - name: Upload Results
-      uses: actions/upload-artifact@v2
-      with:
-        name: jmeter-results
-        path: result.jtl
+      - name: Run JMeter Action on a test
+        uses: rbhadti94/apache-jmeter-action@v0.5.0
+        with:
+          testFilePath: jmx/example.jmx
+          outputReportsFolder: reports/
+          args: "--loglevel INFO"
+
+      - name: Run JMeter Action on other tests
+        uses: rbhadti94/apache-jmeter-action@v0.5.0
+        with:
+          testFilePath: other-tests/
+          outputReportsFolder: other_reports/
+          args: "--loglevel INFO"
+
+      - uses: actions/upload-artifact@v1
+        with:
+          name: jmeter-test-results
+          path: reports/
+
+      - uses: actions/upload-artifact@v1
+        with:
+          name: jmeter-test-results-other
+          path: other_reports/
