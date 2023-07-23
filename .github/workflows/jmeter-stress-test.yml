@@ -29,6 +29,6 @@ jobs:
           export PATH=$JMETER_HOME/bin:$PATH
 
       - name: Run JMeter Test
-        run: jmeter -n -t path/to/your/test.jmx -l results.jtl
+        run: jmeter -n -t exemplo.jmx -l results.jtl
 
       # Add additional steps to analyze the test results, like uploading artifacts or sending notifications.
