@@ -26,7 +26,10 @@ jobs:
       with:
         test-plan-path: jmx/example.jmx
         args: ""
-        
+
+    - name: teste
+      run: pwd
+          
     - name: Upload Results
       uses: actions/upload-artifact@v2
       with:
