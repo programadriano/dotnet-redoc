@@ -24,10 +24,10 @@ jobs:
 
       - name: Install JMeter
         run: |
-          wget -q https://downloads.apache.org//jmeter/binaries/apache-jmeter-5.4.1.tgz
+          curl -L -O https://downloads.apache.org/jmeter/binaries/apache-jmeter-5.4.1.tgz
           tar -xzf apache-jmeter-5.4.1.tgz
           export JMETER_HOME=$PWD/apache-jmeter-5.4.1
           export PATH=$JMETER_HOME/bin:$PATH
-
+      
       - name: Run JMeter Test
         run: jmeter -n -t exemplo.jmx -l results.jtl
