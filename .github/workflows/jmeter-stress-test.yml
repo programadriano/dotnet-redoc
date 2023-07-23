@@ -20,15 +20,14 @@ jobs:
     runs-on: ubuntu-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:
-    - name: JMeter Test
-      run: pwd
-      
+    steps:  
     - name: JMeter Test
       uses: QAInsights/PerfAction@v3.1
       with:
+        run: pwd
         test-plan-path: jmx/example.jmx
         args: ""
+        
    
     - name: Upload Results
       uses: actions/upload-artifact@v2
