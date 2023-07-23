@@ -1,16 +1,16 @@
 name: JMeter Stress Test
 
 on:
-  push: # Execute the workflow on each push to the repository
+  push:
     branches:
-      - main # Change this to your main branch name if different
-  pull_request: # Execute the workflow on pull requests
+      - main
+  pull_request:
     branches:
-      - main # Change this to your main branch name if different
+      - main
 
 jobs:
   jmeter-stress-test:
-    runs-on: ubuntu-latest # You can choose a different runner if needed
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
@@ -19,16 +19,15 @@ jobs:
       - name: Install Java
         uses: actions/setup-java@v2
         with:
-          java-version: '11' # Change this to the desired Java version if needed
+          java-version: '11'
+          distribution: 'adopt'
 
       - name: Install JMeter
         run: |
-          wget -q https://downloads.apache.org//jmeter/binaries/apache-jmeter-X.XX.tgz
-          tar -xzf apache-jmeter-X.XX.tgz
-          export JMETER_HOME=$PWD/apache-jmeter-X.XX
+          wget -q https://downloads.apache.org//jmeter/binaries/apache-jmeter-5.4.1.tgz
+          tar -xzf apache-jmeter-5.4.1.tgz
+          export JMETER_HOME=$PWD/apache-jmeter-5.4.1
           export PATH=$JMETER_HOME/bin:$PATH
 
       - name: Run JMeter Test
         run: jmeter -n -t exemplo.jmx -l results.jtl
-
-      # Add additional steps to analyze the test results, like uploading artifacts or sending notifications.
