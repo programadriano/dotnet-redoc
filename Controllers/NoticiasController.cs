@@ -7,6 +7,7 @@ namespace dotnet_redoc.Controllers;
 public class NoticiasController : ControllerBase
 {
 
+
     private readonly INewsService _newsService;
 
     private readonly ILogger<NoticiasController> _logger;
